@@ -3,6 +3,8 @@ $(document).ready(onReady);
 function onReady(){
     getTasks();
     $(`#add-task-btn`).on(`click`, addTask);
+    $(`#task-out`).on(`click`, `.completed`, updateTask);
+    $(`#task-out`).on(`click`, `.delete`, removeTask);
 }
 
 function addTask(){
@@ -34,6 +36,10 @@ function getTasks(){
     });
 }
 
+function removeTask(){
+    console.log('in removeTask');
+}
+
 function renderTask(tasks){
     $(`#task-out`).empty();
     for(let i=0; i<tasks.length; i++) {
@@ -47,4 +53,19 @@ function renderTask(tasks){
         $('#task-out').append($tr);
         $tr.data(`id`, task.id);
     }
+    $(`#task-in`).val(``);
+}
+
+function updateTask(){
+    let id = $(this).closest(`tr`).data(`id`);
+    $.ajax({
+        method: `PUT`,
+        url: `/task/${id}`
+    }).then(function(response){
+        console.log(`in /task/${id} PUT`);
+        getTasks();
+    }).catch(function(error){
+    alert(`something went wrong`);
+    console.log(error)
+    });
 }

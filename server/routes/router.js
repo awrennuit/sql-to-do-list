@@ -3,7 +3,6 @@ const router = express.Router();
 
 const pool = require('../modules/pool');
 
-// GET
 router.get(`/`, (req, res)=>{
     console.log('in / GET');
     let query = `SELECT * FROM "to-do";`;
@@ -15,7 +14,6 @@ router.get(`/`, (req, res)=>{
     });
 })
 
-// POST
 router.post('/', (req, res)=>{
     console.log('in / POST');
     let id = [req.body.task]
@@ -24,22 +22,22 @@ router.post('/', (req, res)=>{
         res.sendStatus(201);
     })
     .catch(error => {
-        console.log(`ERROR POSTING TASK ON SERVER`, error);
+        console.log(`ERROR POSTING TASK ON SERVER ------------------------->`, error);
         res.sendStatus(500);
       });
   });
 
 // PUT
-// koalaRouter.put('/:id', (req, res)=>{
-//     let id = [req.params.id];
-//     let queryText = `UPDATE "koala" SET "transfer"= 'Y' WHERE "id"= $1`;
-//     pool.query(queryText, id).then( result => {
-//         res.sendStatus(201);
-//     }).catch(error => {
-//         console.log(`Updating koala status ${id} with `, id);
-//         res.sendStatus(500);
-//     });
-// });
+router.put('/:id', (req, res)=>{
+    let id = [req.params.id];
+    let query = `UPDATE "to-do" SET completed = 'Y' WHERE id= $1`;
+    pool.query(query, id).then( result => {
+        res.sendStatus(201);
+    }).catch(error => {
+        console.log(`ERROR PUTTING TASK ON SERVER ------------------------->`, id);
+        res.sendStatus(500);
+    });
+});
 
 // DELETE
 
