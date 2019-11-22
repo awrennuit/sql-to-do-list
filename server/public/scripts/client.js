@@ -6,7 +6,19 @@ function onReady(){
 }
 
 function addTask(){
-
+    let objectToSend = {
+        task: $(`#task-in`).val()
+    }
+    $.ajax({
+        method: `POST`,
+        url: `/task`,
+        data: objectToSend
+    }).then(function(response){
+        getTasks();
+    }).catch(function(error){
+    alert(`something went wrong`);
+    console.log(error)
+    });
 }
 
 function getTasks(){

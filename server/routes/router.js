@@ -18,10 +18,9 @@ router.get(`/`, (req, res)=>{
 // POST
 router.post('/', (req, res)=>{
     console.log('in / POST');
-    let id = [task.task]
+    let id = [req.body.task]
     let query = `INSERT INTO "to-do" (task) VALUES($1);`;
-    pool.query(query, id)
-    .then(result => {
+    pool.query(query, id).then(result => {
         res.sendStatus(201);
     })
     .catch(error => {
