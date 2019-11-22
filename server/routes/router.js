@@ -14,7 +14,7 @@ router.get(`/`, (req, res)=>{
     });
 })
 
-router.post('/', (req, res)=>{
+router.post(`/`, (req, res)=>{
     console.log('in / POST');
     let id = [req.body.task]
     let query = `INSERT INTO "to-do" (task) VALUES($1);`;
@@ -27,18 +27,28 @@ router.post('/', (req, res)=>{
       });
   });
 
-// PUT
-router.put('/:id', (req, res)=>{
+router.put(`/:id`, (req, res)=>{
     let id = [req.params.id];
     let query = `UPDATE "to-do" SET completed = 'Y' WHERE id= $1`;
-    pool.query(query, id).then( result => {
+    pool.query(query, id)
+    .then( result => {
         res.sendStatus(201);
     }).catch(error => {
-        console.log(`ERROR PUTTING TASK ON SERVER ------------------------->`, id);
+        console.log(`ERROR PUTTING TASK ON SERVER ------------------------->`, error);
         res.sendStatus(500);
     });
 });
 
-// DELETE
+router.delete(`/:id`, (req, res)=>{
+    let id = [req.params.id];
+    let query = `DELETE FROM "to-do" WHERE id = $1;`;
+    pool.query(query, id)
+    .then(result=>{
+        res.sendStatus(200)
+    }).catch(error => {
+        console.log(`ERROR PUTTING TASK ON SERVER ------------------------->`, error);
+        res.sendStatus(500);
+    });
+})
 
 module.exports = router;

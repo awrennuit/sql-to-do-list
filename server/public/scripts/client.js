@@ -37,7 +37,17 @@ function getTasks(){
 }
 
 function removeTask(){
-    console.log('in removeTask');
+    let id = $(this).closest(`tr`).data(`id`);
+    $.ajax({
+        method: `DELETE`,
+        url: `/task/${id}`
+    }).then(function(response){
+        console.log('in /task DELETE');
+        getTasks();
+    }).catch(function(error){
+    alert(`something went wrong`);
+    console.log(error)
+    });
 }
 
 function renderTask(tasks){
@@ -62,7 +72,7 @@ function updateTask(){
         method: `PUT`,
         url: `/task/${id}`
     }).then(function(response){
-        console.log(`in /task/${id} PUT`);
+        console.log('in /task PUT');
         getTasks();
     }).catch(function(error){
     alert(`something went wrong`);
