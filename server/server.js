@@ -7,7 +7,7 @@ const router = require('./routes/router');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('server/public'));
 
-app.use('/list', router);
+app.use('/task', router);
 
 app.listen(PORT, () => {
   console.log('listening on port', PORT);
