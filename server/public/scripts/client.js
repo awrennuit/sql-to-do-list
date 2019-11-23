@@ -37,16 +37,20 @@ function getTasks(){
 
 function removeTask(){
     let id = $(this).closest(`tr`).data(`id`);
-    $.ajax({
-        method: `DELETE`,
-        url: `/task/${id}`
-    }).then(function(response){
-        console.log('in /task DELETE');
-        getTasks();
-    }).catch(function(error){
-    alert(`something went wrong`);
-    console.log(error)
-    });
+    let popup = confirm(`Are you sure you want to delete this task?`)
+    if(popup == true){
+        $.ajax({
+            method: `DELETE`,
+            url: `/task/${id}`
+        }).then(function(response){
+            console.log('in /task DELETE');
+            getTasks();
+        }).catch(function(error){
+        alert(`something went wrong`);
+        console.log(error)
+        });
+    }
+    else{    }
 }
 
 function renderTask(tasks){
