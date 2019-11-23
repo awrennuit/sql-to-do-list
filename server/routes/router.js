@@ -6,7 +6,8 @@ const pool = require('../modules/pool');
 router.get(`/`, (req, res)=>{
     console.log('in / GET');
     let query = `SELECT * FROM "to-do";`;
-    pool.query(query).then(result=>{
+    pool.query(query)
+    .then(result=>{
         res.send(result.rows);
     }).catch(error=>{
         console.log('ERROR GETTING TASK ON SERVER ------------------------->', error);
@@ -18,34 +19,50 @@ router.post(`/`, (req, res)=>{
     console.log('in / POST');
     let id = [req.body.task]
     let query = `INSERT INTO "to-do" (task) VALUES($1);`;
-    pool.query(query, id).then(result => {
+    pool.query(query, id)
+    .then(result=>{
         res.sendStatus(201);
     })
-    .catch(error => {
+    .catch(error=>{
         console.log(`ERROR POSTING TASK ON SERVER ------------------------->`, error);
         res.sendStatus(500);
       });
   });
 
 router.put(`/:id`, (req, res)=>{
+    console.log('in /:id PUT');
     let id = [req.params.id];
-    let query = `UPDATE "to-do" SET completed = 'Y' WHERE id= $1`;
+    let query = `UPDATE "to-do" SET completed = 'Y' WHERE id= $1;`;
     pool.query(query, id)
-    .then( result => {
+    .then(result=>{
         res.sendStatus(201);
-    }).catch(error => {
+    }).catch(error=>{
         console.log(`ERROR PUTTING TASK ON SERVER ------------------------->`, error);
         res.sendStatus(500);
     });
 });
 
+// router.put(`/`, (req, res)=>{
+//     console.log('in / PUT');
+//     let query = `SELECT * FROM "to-do" ORDER BY task;`;
+//     console.log('query:', query);
+//     pool.query(query)
+//     .then(result=>{
+//         res.sendStatus(200);
+//     }).catch(error=>{
+//         console.log(`ERROR ORDERING TASK ON SERVER ------------------------->`, error);
+//         res.sendStatus(500);
+//     })
+// })
+
 router.delete(`/:id`, (req, res)=>{
+    console.log('in /:id DELETE');
     let id = [req.params.id];
     let query = `DELETE FROM "to-do" WHERE id = $1;`;
     pool.query(query, id)
     .then(result=>{
         res.sendStatus(200)
-    }).catch(error => {
+    }).catch(error=>{
         console.log(`ERROR PUTTING TASK ON SERVER ------------------------->`, error);
         res.sendStatus(500);
     });
