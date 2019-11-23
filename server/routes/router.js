@@ -5,7 +5,7 @@ const pool = require('../modules/pool');
 
 router.get(`/`, (req, res)=>{
     console.log('in / GET');
-    let query = `SELECT * FROM "to-do";`;
+    let query = `SELECT * FROM "to-do" ORDER BY lower(task);`;
     pool.query(query)
     .then(result=>{
         res.send(result.rows);
@@ -41,19 +41,6 @@ router.put(`/:id`, (req, res)=>{
         res.sendStatus(500);
     });
 });
-
-// router.put(`/`, (req, res)=>{
-//     console.log('in / PUT');
-//     let query = `SELECT * FROM "to-do" ORDER BY task;`;
-//     console.log('query:', query);
-//     pool.query(query)
-//     .then(result=>{
-//         res.sendStatus(200);
-//     }).catch(error=>{
-//         console.log(`ERROR ORDERING TASK ON SERVER ------------------------->`, error);
-//         res.sendStatus(500);
-//     })
-// })
 
 router.delete(`/:id`, (req, res)=>{
     console.log('in /:id DELETE');

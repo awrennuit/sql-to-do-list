@@ -46,6 +46,7 @@ td, th {
 }
 
 td {
+    font-family: "Apple Chancery", cursive;
     position: relative;
 }
 
@@ -63,6 +64,6 @@ tr.active td:after {
   font-size: 1px;
 } */
 
-.active {
+.done {
     background-color: rgb(192, 192, 142);
 }
