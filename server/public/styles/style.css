@@ -50,20 +50,6 @@ td {
     position: relative;
 }
 
-/* tr.active td:before {
-  content: " ";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  border-bottom: 1px solid #111;
-  width: 100%;
-}
-
-tr.active td:after {
-  content: "\00B7";
-  font-size: 1px;
-} */
-
 .done {
     background-color: rgb(192, 192, 142);
 }
