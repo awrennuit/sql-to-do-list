@@ -32,7 +32,13 @@ router.post(`/`, (req, res)=>{
 router.put(`/:id`, (req, res)=>{
     console.log('in /:id PUT');
     let id = [req.params.id];
-    let query = `UPDATE "to-do" SET completed = 'Y' WHERE id= $1;`;
+    let query = '';
+    if(req.body.toggle === 'Completed?'){
+        query = `UPDATE "to-do" SET completed = 'Y' WHERE id= $1;`;
+    }
+    else{
+        query = `UPDATE "to-do" SET completed = 'N' WHERE id= $1;`;
+    }
     pool.query(query, id)
     .then(result=>{
         res.sendStatus(201);
@@ -50,7 +56,7 @@ router.delete(`/:id`, (req, res)=>{
     .then(result=>{
         res.sendStatus(200)
     }).catch(error=>{
-        console.log(`ERROR PUTTING TASK ON SERVER ------------------------->`, error);
+        console.log(`ERROR DELETING TASK ON SERVER ------------------------->`, error);
         res.sendStatus(500);
     });
 })

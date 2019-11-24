@@ -6,6 +6,9 @@ body {
     background-color: bisque;
 }
 
+td:nth-child(3) {
+    text-align: center;
+ }
 
 #top {
     background-color: deepskyblue;
@@ -26,6 +29,7 @@ h1 {
     margin: 20px auto;
     position: relative;
     animation: slide 3s alternate infinite;
+    cursor: pointer;
 }
 
 #task-in {
@@ -63,6 +67,7 @@ td {
     border-radius: 25px;
     font-size: 1.2rem;
     animation: sway 3s alternate infinite ease-in-out;
+    cursor: pointer;
 }
 
 .delete {
@@ -71,6 +76,7 @@ td {
     border-radius: 25px;
     font-size: 1.2rem;
     animation: sway2 4s alternate infinite;
+    cursor: pointer;
 }
 
 @keyframes slide {

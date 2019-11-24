@@ -68,7 +68,7 @@ function renderTask(tasks){
             $tr.append(`<td><button class="completed">Completed?</button></td>`);
         }
         else{
-            $tr.append(`<td></td>`);
+            $tr.append(`<td><button class="completed">Undo?</button></td>`);
         }
         $tr.append(`<td><button class="delete">Remove</button></td>`);
         $('#task-out').append($tr);
@@ -79,9 +79,13 @@ function renderTask(tasks){
 
 function updateTask(){
     let id = $(this).closest(`tr`).data(`id`);
+    let toggle = {
+        toggle: $(this).text()
+    }
     $.ajax({
         method: `PUT`,
-        url: `/task/${id}`
+        url: `/task/${id}`,
+        data: toggle
     }).then(function(response){
         getTasks();
     }).catch(function(error){
