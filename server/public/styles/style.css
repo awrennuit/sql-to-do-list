@@ -3,40 +3,14 @@
 }
 
 body {
-    background-color: bisque;
-}
-
-td:nth-child(3) {
-    text-align: center;
- }
-
-#top {
-    background-color: deepskyblue;
+    background: radial-gradient(#dbc1a0, bisque);
 }
 
 h1 {
     text-align: center;
     text-decoration: underline;
     padding: 20px;
-    animation: warning 1s alternate infinite;
-}
-
-#add-task-btn {
-    display: block;
-    text-align: center;
-    font-size: 2rem;
-    padding: 10px;
-    margin: 20px auto;
-    position: relative;
-    animation: slide 3s alternate infinite;
-    cursor: pointer;
-}
-
-#task-in {
-    display: block;
-    text-align: center;
-    font-size: 2rem;
-    margin: 0 auto;
+    color: black;
 }
 
 table {
@@ -45,6 +19,7 @@ table {
     margin-left: auto; 
     margin-right: auto;
     background-color: #FFFF99;
+    box-shadow: 5px 5px 10px darkgrey;
 }
 
 td, th {
@@ -57,6 +32,35 @@ td {
     position: relative;
 }
 
+td:nth-child(3) {
+    text-align: center;
+ }
+
+#top {
+    background: linear-gradient(to right, rgb(139, 222, 255), #74ebd5);
+    }
+
+#add-task-btn {
+    display: block;
+    background-color: rgb(255, 220, 103);
+    text-align: center;
+    font-size: 2rem;
+    padding: 10px;
+    margin: 20px auto;
+    cursor: pointer;
+}
+
+#add-task-btn:hover {
+    background-color: rgb(255, 208, 55);
+}
+
+#task-in {
+    display: block;
+    text-align: center;
+    font-size: 2rem;
+    margin: 0 auto;
+}
+
 .done {
     background-color: rgb(192, 192, 142);
 }
@@ -66,8 +70,12 @@ td {
     border: 0;
     border-radius: 25px;
     font-size: 1.2rem;
-    animation: sway 3s alternate infinite ease-in-out;
     cursor: pointer;
+    box-shadow: 2px 2px 4px darkgrey;
+}
+
+.completed:hover {
+    background-color: rgb(116, 230, 3);
 }
 
 .delete {
@@ -75,76 +83,10 @@ td {
     border: 0;
     border-radius: 25px;
     font-size: 1.2rem;
-    animation: sway2 4s alternate infinite;
     cursor: pointer;
+    box-shadow: 2px 2px 4px darkgrey;
 }
 
-@keyframes slide {
-    0% {
-        left: -500px;
-        background-color: darkorange;
-    }
-    10% {
-        left: 100px;
-    }
-    25% {
-        left: -150px;
-    }
-    100% {
-        left: 100px;
-    }
-}
-
-@keyframes sway {
-    from {
-        transform: rotate(-20deg);
-    }
-    to {
-        transform: rotate(20deg);
-    }
-}
-
-@keyframes sway2 {
-    from {
-        transform: rotate(20deg);
-    }
-    to {
-        transform: rotate(-20deg);
-    }
-}
-
-@keyframes warning {
-    0% {
-        color: antiquewhite;
-    }
-    10% {
-        color: aqua;
-    }
-    20% {
-        color: blueviolet;
-    }
-    30% {
-        color: chartreuse;
-    }
-    40% {
-        color: coral;
-    }
-    50% {
-        color: darkorange;
-    }
-    60% {
-        color: fuchsia;
-    }
-    70% {
-        color: honeydew;
-    }
-    80% {
-        color: lime;
-    }
-    90% {
-        color: skyblue;
-    }
-    100% {
-        color: gold;
-    }
+.delete:hover {
+    background-color: rgb(240, 64, 0);
 }

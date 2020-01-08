@@ -1,64 +1,52 @@
 const express = require('express');
 const router = express.Router();
-
 const pool = require('../modules/pool');
 
 router.get(`/`, (req, res)=>{
-    console.log('in / GET');
-    let query = `SELECT * FROM "to-do" ORDER BY lower(task);`;
-    pool.query(query)
+    let SQLquery = `SELECT * FROM "to-do" ORDER BY lower(task);`;
+    pool.query(SQLquery)
     .then(result=>{
         res.send(result.rows);
     }).catch(error=>{
-        console.log('ERROR GETTING TASK ON SERVER ------------------------->', error);
+        console.log('ERROR IN GET ------------------------->', error);
         res.sendStatus(500);
     });
-})
+});
 
 router.post(`/`, (req, res)=>{
-    console.log('in / POST');
     let id = [req.body.task]
-    let query = `INSERT INTO "to-do" (task) VALUES($1);`;
-    pool.query(query, id)
-    .then(result=>{
-        res.sendStatus(201);
-    })
-    .catch(error=>{
-        console.log(`ERROR POSTING TASK ON SERVER ------------------------->`, error);
-        res.sendStatus(500);
-      });
-  });
-
-router.put(`/:id`, (req, res)=>{
-    console.log('in /:id PUT');
-    let id = [req.params.id];
-    let query = '';
-    if(req.body.toggle === 'Completed?'){
-        query = `UPDATE "to-do" SET completed = 'Y' WHERE id= $1;`;
-    }
-    else{
-        query = `UPDATE "to-do" SET completed = 'N' WHERE id= $1;`;
-    }
-    pool.query(query, id)
+    let SQLquery = `INSERT INTO "to-do" (task) VALUES($1);`;
+    pool.query(SQLquery, id)
     .then(result=>{
         res.sendStatus(201);
     }).catch(error=>{
-        console.log(`ERROR PUTTING TASK ON SERVER ------------------------->`, error);
+        console.log(`ERROR IN POST ------------------------->`, error);
+        res.sendStatus(500);
+    });
+});
+
+router.put(`/:id`, (req, res)=>{
+    let id = [req.params.id];   
+    let SQLquery = `UPDATE "to-do" SET completed = not completed WHERE id= $1;`;
+    pool.query(SQLquery, id)
+    .then(result=>{
+        res.sendStatus(201);
+    }).catch(error=>{
+        console.log(`ERROR IN PUT ------------------------->`, error);
         res.sendStatus(500);
     });
 });
 
 router.delete(`/:id`, (req, res)=>{
-    console.log('in /:id DELETE');
     let id = [req.params.id];
-    let query = `DELETE FROM "to-do" WHERE id = $1;`;
-    pool.query(query, id)
+    let SQLquery = `DELETE FROM "to-do" WHERE id = $1;`;
+    pool.query(SQLquery, id)
     .then(result=>{
         res.sendStatus(200)
     }).catch(error=>{
-        console.log(`ERROR DELETING TASK ON SERVER ------------------------->`, error);
+        console.log(`ERROR IN DELETE ------------------------->`, error);
         res.sendStatus(500);
     });
-})
+});
 
 module.exports = router;

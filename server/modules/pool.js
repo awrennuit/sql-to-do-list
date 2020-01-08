@@ -1,21 +1,32 @@
-const pg = require(`pg`);
+const pg = require('pg');
+const url = require('url');
+let config = {};
 
-const config = {
-    database: `to_do`,
-    host: `localhost`,
-    port: 5432,
-    max: 10,
-    idleTimeoutMillis: 30000
-};
+if (process.env.DATABASE_URL) {
+    let params = url.parse(process.env.DATABASE_URL);
+    let auth = params.auth.split(':');
 
-const pool = new pg.Pool(config);
+    config = {
+        user: auth[0],
+        password: auth[1],
+        host: params.hostname,
+        port: params.port,
+        database: params.pathname.split('/')[1],
+        ssl: true,
+        max: 10,
+        idleTimeoutMillis: 30000,
+    };
 
-pool.on(`connect`, ()=>{
-    console.log('connected to PG');
-});
+} else {
+    config = {
+        user: process.env.PG_USER || null,
+        password: process.env.DATABASE_SECRET || null,
+        host: process.env.DATABASE_SERVER || 'localhost',
+        port: process.env.DATABASE_PORT || 5432,
+        database: process.env.DATABASE_NAME || 'to_do',
+        max: 10,
+        idleTimeoutMillis: 30000,
+    };
+}
 
-pool.on(`error`, (error)=>{
-    console.log('error connecting to PG', error);
-});
-
-module.exports = pool;
+module.exports = new pg.Pool(config);
