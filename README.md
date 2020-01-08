@@ -5,8 +5,6 @@ Duration: weekend project
 
 This is my weekend project for Week 3 onsite at Prime Digital Academy. It's a to-do list where new tasks can be added and existing tasks can be marked complete or deleted.
 
-View the full app here: https://arcane-anchorage-04262.herokuapp.com/
-
 ## Technologies Used
 - Javascript
 - jQuery
